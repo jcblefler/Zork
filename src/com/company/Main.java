@@ -6,6 +6,14 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static int secretRoom(){
+        Random rand = new Random();
+        int roomSecretRoll = rand.nextInt(5);
+        return roomSecretRoll;
+    }
+
+
+
     public static void room(int roomNumber){
         String direction = "";
         String roomName = "";
@@ -14,12 +22,17 @@ public class Main {
         Scanner keyboard = new Scanner(System.in);
         Random rand = new Random();
 
-        int roomSecret = rand.nextInt(5);
+        int roomSecret = secretRoom();
         int ghost = rand.nextInt(5);
         String userInput;
         boolean house = true;
+        boolean revealed =false;
 
 //        ArrayList<Integer> roomNext = new ArrayList<Integer>();
+
+        if (roomSecret == 4){
+            revealed = true;
+        }
 
         switch (roomNumber) {
             case 1: roomName = "Foyer";
@@ -43,7 +56,7 @@ public class Main {
                     direction = "South";
                 break;
             case 6: roomName = "Vault";
-                    roomContent = "3 Walking Seletons";
+                    roomContent = "3 Walking Skeletons";
                     direction = "East";
                 break;
             case 7: roomName = "Parlor";
@@ -59,12 +72,13 @@ public class Main {
         System.out.println("\nYou are in the " + roomName + " room.");
         System.out.println("You see " + roomContent + ".");
         System.out.println("You can go " + direction + " or leave the house.");
-        if (roomNumber == 6 && roomSecret == 4){
+        if (roomNumber == 6 && revealed){
             System.out.println("You found a secret room. Type (Enter)");
         }
         System.out.print("Where will you go?\n(" + direction + " or Run) : ");
+        System.out.println(roomSecret);
 
-        while (house == true){
+        while (house){
 
             userInput = keyboard.nextLine();
 
@@ -146,7 +160,7 @@ public class Main {
                 if (userInput.equalsIgnoreCase("east")){
                     room(7);
                 }
-                else if (userInput.equalsIgnoreCase("enter") && roomSecret == 4){
+                else if (userInput.equalsIgnoreCase("enter") && revealed){
                     room(8);
                 }
                 else if (userInput.equalsIgnoreCase("run")){
