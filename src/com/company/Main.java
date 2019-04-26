@@ -7,7 +7,11 @@ import java.util.Scanner;
 
 public class Main {
 
-
+    public static int randomMoney(){
+        Random random = new Random();
+        int amount = random.nextInt(1001);
+        return amount;
+    }
 
 
     public static void main(String[] args) {
@@ -22,6 +26,7 @@ public class Main {
         String userInput;
         boolean house = true;
         int roomCount = 0;
+        int playerMoney = 0;
 
         HashMap<Integer, Boolean> roomsVisited = new HashMap<Integer, Boolean>();
         roomsVisited.put(1, false);
@@ -46,49 +51,56 @@ public class Main {
         room1.setRoomName("Foyer");
         room1.setRoomContent("a Dead Scorpion");
         room1.setDirection("North");
-        room1.setRoomMoney(rand.nextInt(1001));
+        room1.setRoomMoney(randomMoney());
 
         Room room2 = new Room();
         room2.setRoomNumber(2);
         room2.setRoomName("Front Room");
         room2.setRoomContent("Piano");
         room2.setDirection("South, East, West");
+        room2.setRoomMoney(randomMoney());
 
         Room room3 = new Room();
         room3.setRoomNumber(3);
         room3.setRoomName("Library");
         room3.setRoomContent("Spiders");
         room3.setDirection("North, East");
+        room3.setRoomMoney(randomMoney());
 
         Room room4 = new Room();
         room4.setRoomNumber(4);
         room4.setRoomName("Kitchen");
         room4.setRoomContent("Bats");
         room4.setDirection("North, West");
+        room4.setRoomMoney(randomMoney());
 
         Room room5 = new Room();
         room5.setRoomNumber(5);
         room5.setRoomName("Dining Room");
         room5.setRoomContent("Dust and an Empty Box");
         room5.setDirection("South");
+        room5.setRoomMoney(randomMoney());
 
         Room room6 = new Room();
         room6.setRoomNumber(6);
         room6.setRoomName("Vault");
         room6.setRoomContent("3 Walking Skeletons");
         room6.setDirection("East");
+        room6.setRoomMoney(randomMoney());
 
         Room room7 = new Room();
         room7.setRoomNumber(7);
         room7.setRoomName("Parlor");
         room7.setRoomContent("Treasure Chest");
         room7.setDirection("West, South");
+        room7.setRoomMoney(randomMoney());
 
         Room room8 = new Room();
         room8.setRoomNumber(8);
         room8.setRoomName("Secret Room");
         room8.setRoomContent("Piles of Gold");
         room8.setDirection("West");
+        room8.setRoomMoney(randomMoney());
 
 
         inRoom = room1.currentRoom();
@@ -101,6 +113,16 @@ public class Main {
                 System.out.println(room1.displayMessage());
                 userInput = keyboard.nextLine();
                 roomsVisited.replace(1, true);
+
+                if (userInput.equalsIgnoreCase("take") && room1.roomMoney() > 0){
+                    room1.playerMoney();
+                    System.out.println("You picked up the money and now have $" + room1.displayPlayerMoney() + ". Where will you do now?");
+                    userInput = keyboard.nextLine();
+                }
+                if (userInput.equalsIgnoreCase("take") && room1.roomMoney() == 0){
+                    System.out.println("There is no money left in the room. Where will you do now?");
+                    userInput = keyboard.nextLine();
+                }
 
                 if (userInput.equalsIgnoreCase("north")){
                     inRoom = 2;
@@ -138,6 +160,7 @@ public class Main {
                 System.out.println(room3.displayMessage());
                 userInput = keyboard.nextLine();
                 roomsVisited.replace(3, true);
+
 
 
                 if (userInput.equalsIgnoreCase("north")){

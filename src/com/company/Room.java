@@ -4,6 +4,7 @@ public class Room {
 
     private int roomNumber;
     private int roomMoney;
+    private int playerMoney;
     private String roomName;
     private String roomContent;
     private String direction;
@@ -14,12 +15,32 @@ public class Room {
     }
 
 
+    public int roomMoney(){
+        return roomMoney;
+    }
+    public String displayMoney(){
+
+        if (roomMoney == 0){
+            return ".";
+        } else {
+            return " and $" + roomMoney + ".";
+        }
+    }
+
+    public int playerMoney() {
+        playerMoney = playerMoney + roomMoney;
+        return playerMoney;
+    }
+    public int displayPlayerMoney(){
+        return playerMoney;
+    }
+
 
 
     public String displayMessage(){
         return
-                "\nYou are in the " + roomName + " room.\nYou see " +
-                roomContent + ".\nYou can go " + direction +
+                "\nYou are in the " + roomName + " room and have $" + playerMoney + ".\nYou see " +
+                roomContent + displayMoney() + "\nYou can go " + direction +
                 " or leave the house.\nWhere will you go?\n(" + direction + " or Run): ";
 
     }
@@ -68,6 +89,14 @@ public class Room {
 
     public void setDirection(String direction) {
         this.direction = direction;
+    }
+
+    public int getPlayerMoney() {
+        return playerMoney;
+    }
+
+    public void setPlayerMoney(int playerMoney) {
+        this.playerMoney = playerMoney;
     }
 }
 //switch (roomNumber) {
